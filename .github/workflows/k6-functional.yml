@@ -1,0 +1,32 @@
+name: K6 Functional Tests
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+
+jobs:
+  k6-functional:
+    runs-on: ubuntu-latest
+
+    env:
+      PASSWORD: ${{ secrets.TEST_USER_PASSWORD }}  # store your password in repo secrets
+      BASE_URL: ${{ secrets.BASE_URL }}            # optional: base URL from config
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install k6
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y ca-certificates gnupg
+          curl -fsSL https://dl.k6.io/key.gpg | sudo gpg --dearmor -o /usr/share/keyrings/k6-archive-keyring.gpg
+          echo "deb [signed-by=/usr/share/keyrings/k6-archive-keyring.gpg] https://dl.k6.io/deb stable main" | sudo tee /etc/apt/sources.list.d/k6.list
+          sudo apt-get update
+          sudo apt-get install -y k6
+
+      - name: Run Functional Tests
+        run: |
+          echo "Running k6 functional tests..."
+          npm run apiChain
