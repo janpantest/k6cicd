@@ -2,7 +2,7 @@ name: K6 Functional Tests
 
 on:
   push:
-    branches: [ main, develop ]
+    branches: [ main, develop, master ]
   pull_request:
 
 jobs:
@@ -10,8 +10,9 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      PASSWORD: ${{ secrets.TEST_USER_PASSWORD }}  # store your password in repo secrets
-      BASE_URL: ${{ secrets.BASE_URL }}            # optional: base URL from config
+      PASSWORD: ${{ secrets.PASSWORD }}  # store your password in repo secrets
+      BASE_URL: ${{ secrets.BASE_URL_BOOK }}            # optional: base URL from config
+      TEST_NAME: ${{ secrets.TEST_NAME }}            # optional: base URL from config
 
     steps:
       - name: Checkout repository
