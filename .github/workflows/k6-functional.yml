@@ -30,4 +30,4 @@ jobs:
       - name: Run Functional Tests
         run: |
           echo "Running k6 functional tests..."
-          npm run apiChain
+          npm run api
