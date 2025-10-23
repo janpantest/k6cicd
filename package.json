@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "api": "set BASE_URL=https://demoqa.com&& k6 run test/api-chained.js",
     "apiChain": "node run-k6.js"
   },
   "keywords": [],
