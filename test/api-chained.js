@@ -28,7 +28,7 @@ export default function() {
       headers: { 'Content-Type': 'application/json' },
     });
     
-    expect(res.status, 'response status').to.equal(201);
+    expect(res.status, 'response status').to.equal(202);
     userId = JSON.parse(res.body).userID;
 
     checkAllKeysExist(JSON.parse(res.body), createUser);
