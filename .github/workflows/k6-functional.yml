@@ -23,7 +23,7 @@ jobs:
         with:
           node-version: '18'
 
-      - name: Install dependencies (if needed for npm packages like dotenv)
+      - name: Install dependencies
         run: npm install
 
       - name: Install k6
