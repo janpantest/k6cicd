@@ -28,11 +28,20 @@ export default function() {
       headers: { 'Content-Type': 'application/json' },
     });
     
-    expect(res.status, 'response status').to.equal(202);
-    userId = JSON.parse(res.body).userID;
+    // expect(res.status, 'response status').to.equal(202);
+    // userId = JSON.parse(res.body).userID;
 
-    checkAllKeysExist(JSON.parse(res.body), createUser);
+    // checkAllKeysExist(JSON.parse(res.body), createUser);
     // console.log(JSON.parse(res.body));
+
+    try {
+      expect(res.status, 'response status').to.equal(202);
+      userId = JSON.parse(res.body).userID;
+      checkAllKeysExist(JSON.parse(res.body), createUser);
+    } catch (e) {
+      console.error('Create user failed:', e);
+      fail('Create user failed');  // Explicitly fail the test
+    }
 
     sleep(1);
   });
