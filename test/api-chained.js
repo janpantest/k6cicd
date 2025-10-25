@@ -14,7 +14,7 @@ export const options = {
 
   
 export default function() {
-  const userName = 'test_' + Date.now();
+  const userName = __ENV.TEST_NAME + Date.now();
   const password = __ENV.PASSWORD;
   // console.log(userName + ' ' + password);
   // console.log(`Using ${userName} having this password: ${password}`);
@@ -32,7 +32,7 @@ export default function() {
     userId = JSON.parse(res.body).userID;
 
     checkAllKeysExist(JSON.parse(res.body), createUser);
-    // console.log(JSON.parse(res.body));
+    console.log(JSON.parse(res.body));
 
     sleep(1);
   });
