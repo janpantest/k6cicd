@@ -14,7 +14,7 @@ export const options = {
 
   
 export default function() {
-  const userName = 'test_' + Date.now();
+  const userName = __ENV.TEST_NAME + Date.now();
   const password = __ENV.PASSWORD;
   // console.log(userName + ' ' + password);
   // console.log(`Using ${userName} having this password: ${password}`);

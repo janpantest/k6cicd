@@ -18,6 +18,14 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install dependencies (if needed for npm packages like dotenv)
+        run: npm install
+
       - name: Install k6
         run: |
           sudo apt-get update
@@ -30,4 +38,4 @@ jobs:
       - name: Run Functional Tests
         run: |
           echo "Running k6 functional tests..."
-          npm run api
+          npm run apiChain
