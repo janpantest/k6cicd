@@ -5,9 +5,9 @@ const { execSync } = require('child_process');
 // const crossEnv = require('cross-env');
 
 // Retrieve values from .env file
-// const BASE_URL = process.env.BASE_URL_BOOK;
-// const TEST_NAME = process.env.TEST_NAME;
-// const PASSWORD = process.env.PASSWORD;
+const BASE_URL = process.env.BASE_URL_BOOK;
+const TEST_NAME = process.env.TEST_NAME;
+const PASSWORD = process.env.PASSWORD;
 
 // Log to confirm values are loaded
 // console.log('Base URL:', BASE_URL);
