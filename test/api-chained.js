@@ -32,7 +32,7 @@ export default function() {
     userId = JSON.parse(res.body).userID;
 
     checkAllKeysExist(JSON.parse(res.body), createUser);
-    console.log(JSON.parse(res.body));
+    // console.log(JSON.parse(res.body));
 
     sleep(1);
   });
