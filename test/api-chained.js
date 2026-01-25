@@ -9,9 +9,11 @@ import { checkAllKeysExist } from '../helpers/expects.js';
 
 export const options = {
   vus: 1,
-  duration: '1s'
+  duration: '1s',
+  thresholds: {
+    checks: ['rate==1.0'],
+  },
 }
-
   
 export default function() {
   const userName = __ENV.TEST_NAME + Date.now();
