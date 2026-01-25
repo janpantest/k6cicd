@@ -33,8 +33,8 @@ export default function() {
       headers: { 'Content-Type': 'application/json' },
     });
     
-    expect(res.status, 'response status create user').to.equal(203);
-    // console.info('status create user', res.status)
+    expect(res.status, 'response status create user').to.equal(201);
+    console.info('status create user', res.status)
     userId = JSON.parse(res.body).userID;
 
     checkAllKeysExist(JSON.parse(res.body), createUser);
