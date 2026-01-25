@@ -6,14 +6,17 @@ import { payloadCreateUser } from '../payloads/payloadCreateUser.js';
 import { payloadAddBook } from '../payloads/payloadAddBook.js';
 import { addBook, createUser, tokenCreation } from '../constants/keys.js';
 import { checkAllKeysExist } from '../helpers/expects.js';
+import { options } from '../options.js';
 
-export const options = {
-  vus: 1,
-  duration: '1s',
-  thresholds: {
-    checks: ['rate==1.0'],
-  },
-}
+export { options }
+
+// export const options = {
+//   vus: 1,
+//   duration: '1s',
+//   thresholds: {
+//     checks: ['rate==1.0'],
+//   },
+// }
   
 export default function() {
   const userName = __ENV.TEST_NAME + Date.now();
@@ -30,7 +33,7 @@ export default function() {
       headers: { 'Content-Type': 'application/json' },
     });
     
-    expect(res.status, 'response status create user').to.equal(201);
+    expect(res.status, 'response status create user').to.equal(203);
     // console.info('status create user', res.status)
     userId = JSON.parse(res.body).userID;
 
