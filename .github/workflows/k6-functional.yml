@@ -1,6 +1,7 @@
 name: K6 Functional Tests
 
 on:
+  workflow_dispatch:
   push:
     branches: [ main, develop, master ]
   pull_request:
