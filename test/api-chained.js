@@ -28,7 +28,7 @@ export default function() {
       headers: { 'Content-Type': 'application/json' },
     });
     
-    expect(res.status, 'response status').to.equal(201);
+    expect(res.status, 'response status create user').to.equal(203);
     userId = JSON.parse(res.body).userID;
 
     checkAllKeysExist(JSON.parse(res.body), createUser);
@@ -43,7 +43,7 @@ export default function() {
       headers: { 'Content-Type': 'application/json' },
     });
 
-    expect(res.status, 'response status').to.equal(200);
+    expect(res.status, 'response status generate token').to.equal(200);
     token = JSON.parse(res.body).token;
     checkAllKeysExist(JSON.parse(res.body), tokenCreation);
 
@@ -62,7 +62,7 @@ export default function() {
         },
     });
 
-    expect(res.status, 'response status').to.equal(201);
+    expect(res.status, 'response status for add book').to.equal(201);
     // console.log(JSON.parse(res.body));
     checkAllKeysExist(JSON.parse(res.body), addBook);
 
