@@ -9,14 +9,6 @@ import { checkAllKeysExist } from '../helpers/expects.js';
 import { options } from '../options.js';
 
 export { options }
-
-// export const options = {
-//   vus: 1,
-//   duration: '1s',
-//   thresholds: {
-//     checks: ['rate==1.0'],
-//   },
-// }
   
 export default function() {
   const userName = __ENV.TEST_NAME + Date.now();
@@ -55,7 +47,6 @@ export default function() {
     checkAllKeysExist(JSON.parse(res.body), tokenCreation);
 
     // console.log(JSON.parse(res.body));
-
     sleep(1);
   });
 
@@ -71,7 +62,6 @@ export default function() {
 
     expect(res.status, 'response status for add book').to.equal(201);
     // console.log(JSON.parse(res.body));
-    // console.info('status add book', res.status)
     checkAllKeysExist(JSON.parse(res.body), addBook);
 
     sleep(1);
