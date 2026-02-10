@@ -13,8 +13,6 @@ export { options }
 export default function() {
   const userName = __ENV.TEST_NAME + Date.now();
   const password = __ENV.PASSWORD;
-  // console.log(userName + ' ' + password);
-  // console.log(`Using ${userName} having this password: ${password}`);
 
   let userId;
   let res;
@@ -30,23 +28,19 @@ export default function() {
     userId = JSON.parse(res.body).userID;
 
     checkAllKeysExist(JSON.parse(res.body), createUser);
-    // console.log(JSON.parse(res.body));
 
     sleep(1);
   });
 
   describe('Generate token', () => {
-    // console.log(`Using user ID: ${userId} with username : ${userName}`);
     res = http.post(`${config.baseUrl}/Account/v1/GenerateToken`, JSON.stringify(payloadCreateUser(userName, password)), {
       headers: { 'Content-Type': 'application/json' },
     });
 
     expect(res.status, 'response status generate token').to.equal(200);
-    // console.info('status generate token', res.status)
     token = JSON.parse(res.body).token;
     checkAllKeysExist(JSON.parse(res.body), tokenCreation);
 
-    // console.log(JSON.parse(res.body));
     sleep(1);
   });
 
@@ -61,7 +55,6 @@ export default function() {
     });
 
     expect(res.status, 'response status for add book').to.equal(201);
-    // console.log(JSON.parse(res.body));
     checkAllKeysExist(JSON.parse(res.body), addBook);
 
     sleep(1);
