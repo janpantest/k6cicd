@@ -1,6 +1,6 @@
-export function payloadAddBook(userId) {
+export function payloadAddBook(userId, isbnValue) {
   return {
     'userId': userId,
-    'collectionOfIsbns': [{ isbn: "9781449325862" }]
+    'collectionOfIsbns': [{ isbn: isbnValue }]
   };
 }

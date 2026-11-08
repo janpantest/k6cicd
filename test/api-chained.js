@@ -1,4 +1,4 @@
-import http, { expectedStatuses } from 'k6/http';
+import http from 'k6/http';
 import { sleep } from 'k6';
 import { describe, expect } from 'https://jslib.k6.io/k6chaijs/4.3.4.3/index.js';
 import { config } from '../config/config.js'
@@ -17,6 +17,7 @@ export default function() {
   let userId;
   let res;
   let token;
+  let firstIsbnValue;
 
   describe('Create user', () => {
     res = http.post(`${config.baseUrl}/Account/v1/User`, JSON.stringify(payloadCreateUser(userName, password)), {
@@ -24,7 +25,6 @@ export default function() {
     });
     
     expect(res.status, 'response status create user').to.equal(201);
-    console.info('status create user', res.status)
     userId = JSON.parse(res.body).userID;
 
     checkAllKeysExist(JSON.parse(res.body), createUser);
@@ -44,20 +44,52 @@ export default function() {
     sleep(1);
   });
 
+  describe('Get isbn value from books', () => {
+    res = http.get(`${config.baseUrl}/BookStore/v1/Books`);
+
+    const responseBody = JSON.parse(res.body);
+    firstIsbnValue = responseBody.books[0].isbn;
+
+    sleep(1);
+  });
+
   describe('Add book', () => {
     res = http.post(`${config.baseUrl}/BookStore/v1/Books`, 
-      JSON.stringify(payloadAddBook(userId)), {
+      JSON.stringify(payloadAddBook(userId, firstIsbnValue)), {
         
         headers: {
           'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}` 
+          'Authorization': `Bearer ${token}` 
         },
     });
 
     expect(res.status, 'response status for add book').to.equal(201);
     checkAllKeysExist(JSON.parse(res.body), addBook);
 
-    sleep(1);
+    sleep(5);
+  });
+
+  describe('Get updated list of books', () => {
+  res = http.get(
+    `${config.baseUrl}/Account/v1/User/${userId}`,
+    {
+      headers: {
+        'accept': 'application/json',
+        'Authorization': `Bearer ${token}`
+      }
+    }
+  );
+
+    expect(res.status, 'response status for get user').to.equal(200);
+
+    const responseBody = JSON.parse(res.body);
+
+    const bookExists = responseBody.books.some(
+      book => book.isbn === firstIsbnValue
+    );
+
+    expect(bookExists, 'newly added book exists in collection').to.equal(true);
+
+    sleep(1)
   });
 }
-
