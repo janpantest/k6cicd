@@ -2,7 +2,6 @@
 import http from 'k6/http';
 import { sleep } from 'k6';
 import { describe, expect } from 'https://jslib.k6.io/k6chaijs/4.3.4.3/index.js';
-
 import { config } from '../config/config.js';
 import { payloadCreateUser } from '../payloads/payloadCreateUser.js';
 import { payloadAddBook } from '../payloads/payloadAddBook.js';
@@ -116,7 +115,7 @@ export default function () {
     const responseBody = JSON.parse(res.body);
     // console.info(JSON.stringify(responseBody, null, 2));
     const bookExists = responseBody.books.some(
-        book => book.isbn === firstIsbnValue
+      book => book.isbn === firstIsbnValue
     );
 
     expect(bookExists, 'newly added book exists in collection').to.equal(true);
