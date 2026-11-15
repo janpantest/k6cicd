@@ -18,6 +18,7 @@ export default function () {
   let userId;
   let token;
   let firstIsbnValue;
+  let isbnToAdd;
 
   const headers = {
       'Content-Type': 'application/json',
@@ -68,8 +69,12 @@ export default function () {
     expect(res.status, 'response status get books').to.equal(200);
 
     const responseBody = JSON.parse(res.body);
-    expect(responseBody.books.length, 'books list is not empty')
+
+    const bookAmount = responseBody.books.length;
+    expect(bookAmount, 'books list is not empty')
         .to.be.greaterThan(0);
+    const randomIndex = Math.floor(Math.random() * bookAmount);
+    isbnToAdd = responseBody.books[randomIndex].isbn;
 
     firstIsbnValue = responseBody.books[0].isbn;
     expect(firstIsbnValue, 'first book ISBN')
@@ -82,7 +87,7 @@ export default function () {
   describe('Add book', () => {
     const res = http.post(
       `${config.baseUrl}/BookStore/v1/Books`,
-      JSON.stringify(payloadAddBook(userId, firstIsbnValue)), {
+      JSON.stringify(payloadAddBook(userId, isbnToAdd)), {
         headers: {
           ...headers,
           'Authorization': `Bearer ${token}`,
@@ -110,7 +115,7 @@ export default function () {
     const responseBody = JSON.parse(res.body);
     // console.info(JSON.stringify(responseBody, null, 2));
     const bookExists = responseBody.books.some(
-      book => book.isbn === firstIsbnValue
+      book => book.isbn === isbnToAdd
     );
 
     expect(bookExists, 'newly added book exists in collection').to.equal(true);
