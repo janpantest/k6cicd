@@ -114,7 +114,7 @@ export default function () {
     expect(res.status, 'response status get user').to.equal(200);
 
     const responseBody = JSON.parse(res.body);
-    console.info(JSON.stringify(responseBody, null, 2));
+    // console.info(JSON.stringify(responseBody, null, 2));
     const bookExists = responseBody.books.some(
         book => book.isbn === firstIsbnValue
     );
