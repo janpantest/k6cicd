@@ -1,4 +1,3 @@
-
 import http from 'k6/http';
 import { sleep } from 'k6';
 import { describe, expect } from 'https://jslib.k6.io/k6chaijs/4.3.4.3/index.js';
@@ -27,9 +26,9 @@ export default function () {
 
   describe('Create user', () => {
     const res = http.post(
-        `${config.baseUrl}/Account/v1/User`,
-        JSON.stringify(payloadCreateUser(userName, password)),
-        { headers }
+      `${config.baseUrl}/Account/v1/User`,
+      JSON.stringify(payloadCreateUser(userName, password)),
+      { headers }
     );
 
     expect(res.status, 'response status create user').to.equal(201);
@@ -45,9 +44,9 @@ export default function () {
 
   describe('Generate token', () => {
     const res = http.post(
-        `${config.baseUrl}/Account/v1/GenerateToken`,
-        JSON.stringify(payloadCreateUser(userName, password)),
-        { headers }
+      `${config.baseUrl}/Account/v1/GenerateToken`,
+      JSON.stringify(payloadCreateUser(userName, password)),
+      { headers }
     );
 
     expect(res.status, 'response status generate token').to.equal(200);
@@ -63,7 +62,7 @@ export default function () {
 
   describe('Get ISBN value from books', () => {
     const res = http.get(
-        `${config.baseUrl}/BookStore/v1/Books`
+      `${config.baseUrl}/BookStore/v1/Books`
     );
 
     expect(res.status, 'response status get books').to.equal(200);
@@ -82,15 +81,13 @@ export default function () {
 
   describe('Add book', () => {
     const res = http.post(
-        `${config.baseUrl}/BookStore/v1/Books`,
-        JSON.stringify(payloadAddBook(userId, firstIsbnValue)),
-        {
-            headers: {
-                ...headers,
-                'Authorization': `Bearer ${token}`,
-            },
-        }
-    );
+      `${config.baseUrl}/BookStore/v1/Books`,
+      JSON.stringify(payloadAddBook(userId, firstIsbnValue)), {
+        headers: {
+          ...headers,
+          'Authorization': `Bearer ${token}`,
+        },
+    });
 
     expect(res.status, 'response status add book').to.equal(201);
 
@@ -102,13 +99,11 @@ export default function () {
 
   describe('Verify book in user collection', () => {
     const res = http.get(
-        `${config.baseUrl}/Account/v1/User/${userId}`,
-        {
-            headers: {
-                'Authorization': `Bearer ${token}`,
-            },
-        }
-    );
+      `${config.baseUrl}/Account/v1/User/${userId}`, {
+        headers: {
+          'Authorization': `Bearer ${token}`,
+        },
+    });
 
     expect(res.status, 'response status get user').to.equal(200);
 
